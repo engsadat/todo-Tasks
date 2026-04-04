@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+tasks.json
+.mcp.json
+.claude/
+glm_mcp_server.py

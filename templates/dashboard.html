@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-top: 0; margin-bottom: 20px;">Dashboard</h1>
+
+<div class="stat-cards">
+    <div class="stat-card total">
+        <h3>Total</h3>
+        <p class="value">{{ total_count }}</p>
+    </div>
+    <div class="stat-card done">
+        <h3>Done</h3>
+        <p class="value">{{ completed_count }}</p>
+    </div>
+    <div class="stat-card pending">
+        <h3>Pending</h3>
+        <p class="value">{{ pending_count }}</p>
+    </div>
+</div>
+
+<h2 style="font-size: 18px; margin-bottom: 15px;">Recently Added:</h2>
+{% if recent_tasks %}
+<div class="card">
+    <ul class="task-list">
+        {% for task in recent_tasks %}
+        <li class="task-item">
+            <span class="task-title" style="margin-left: 0;">{{ task.title }}</span>
+            <span style="color: #888; font-size: 14px;">{{ task.time_ago }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<div class="card" style="text-align: center; color: #888; padding: 30px 10px;">
+    <p>No recent tasks found.</p>
+</div>
+{% endif %}
+{% endblock %}
