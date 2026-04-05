@@ -5,10 +5,10 @@ from flask import Flask, request, redirect, url_for, render_template, session
 from dotenv import load_dotenv
 import httpx
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY")
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback-secret-key-change-me")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 REST_URL = f"{SUPABASE_URL}/rest/v1"
