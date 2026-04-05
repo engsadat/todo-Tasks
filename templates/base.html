@@ -9,8 +9,16 @@
 <body>
     <div class="container">
         <nav>
-            <a href="/">Tasks</a>
-            <a href="/dashboard">Dashboard</a>
+            {% if session.get('email') %}
+                <a href="/">Tasks</a>
+                <a href="/dashboard">Dashboard</a>
+                <div class="user-info">
+                    <span class="user-email">{{ session.get('email') }}</span>
+                    <form action="/logout" method="POST" style="display:inline; margin:0; padding:0;">
+                        <button type="submit" class="btn-danger" style="margin-left: 10px;">Logout</button>
+                    </form>
+                </div>
+            {% endif %}
         </nav>
         
         <main>
