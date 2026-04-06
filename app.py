@@ -77,6 +77,10 @@ def login():
             session['access_token'] = data.get('access_token')
             session['refresh_token'] = data.get('refresh_token')
             session['email'] = data.get('user', {}).get('email')
+            # Fetch user role from profiles
+            profile_res = httpx.get(f"{REST_URL}/profiles", params={"select": "role", "id": f"eq.{data['user']['id']}"}, headers=get_user_headers(data['access_token']))
+            profile = profile_res.json()
+            session['role'] = profile[0]['role'] if profile else 'user'
             return redirect(url_for('index'))
         else:
             error = res.json().get('error_description', 'Invalid login credentials')
@@ -100,6 +104,10 @@ def register():
                 session['access_token'] = data.get('access_token')
                 session['refresh_token'] = data.get('refresh_token')
                 session['email'] = data.get('user', {}).get('email')
+                # Fetch user role from profiles (new users default to 'user')
+                profile_res = httpx.get(f"{REST_URL}/profiles", params={"select": "role", "id": f"eq.{data['user']['id']}"}, headers=get_user_headers(data['access_token']))
+                profile = profile_res.json()
+                session['role'] = profile[0]['role'] if profile else 'user'
                 return redirect(url_for('index'))
             else:
                 return redirect(url_for('login'))

@@ -13,6 +13,7 @@
                 <a href="/">Tasks</a>
                 <a href="/dashboard">Dashboard</a>
                 <div class="user-info">
+                    {% if session.get('role') == 'admin' %}<span class="admin-badge">Admin</span>{% endif %}
                     <span class="user-email">{{ session.get('email') }}</span>
                     <form action="/logout" method="POST" style="display:inline; margin:0; padding:0;">
                         <button type="submit" class="btn-danger" style="margin-left: 10px;">Logout</button>
